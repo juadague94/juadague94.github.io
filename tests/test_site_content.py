@@ -87,6 +87,9 @@ class SiteContentTests(unittest.TestCase):
         for section_id in ("basica", "intermedia", "avanzada"):
             self.assertIn(f'id="{section_id}"', body)
 
+    def test_github_pages_serves_plain_static_files(self):
+        self.assertTrue((ROOT / ".nojekyll").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
