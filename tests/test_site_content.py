@@ -72,6 +72,13 @@ class SiteContentTests(unittest.TestCase):
             links = re.findall(r'href="#([^"]+)"', page)
             self.assertEqual([], sorted({link for link in links if link not in targets}))
 
+    def test_legacy_instagram_url_redirects_to_public_root(self):
+        redirect_path = ROOT / "drfish" / "index.html"
+        self.assertTrue(redirect_path.is_file())
+        redirect = redirect_path.read_text(encoding="utf-8")
+        self.assertIn('http-equiv="refresh" content="0; url=https://juadague94.github.io/"', redirect)
+        self.assertIn('href="https://juadague94.github.io/" rel="canonical"', redirect)
+
 
 if __name__ == "__main__":
     unittest.main()
