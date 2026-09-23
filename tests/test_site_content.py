@@ -66,6 +66,12 @@ class SiteContentTests(unittest.TestCase):
         self.assertIn('href="https://juadague94.github.io/" rel="canonical"', self.es)
         self.assertIn('href="https://juadague94.github.io/en.html" rel="canonical"', self.en)
 
+    def test_all_internal_section_links_have_a_target(self):
+        for page in (self.es, self.en):
+            targets = set(re.findall(r'\bid="([^"]+)"', page))
+            links = re.findall(r'href="#([^"]+)"', page)
+            self.assertEqual([], sorted({link for link in links if link not in targets}))
+
 
 if __name__ == "__main__":
     unittest.main()
