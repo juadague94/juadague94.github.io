@@ -79,6 +79,14 @@ class SiteContentTests(unittest.TestCase):
         self.assertIn('http-equiv="refresh" content="0; url=https://juadague94.github.io/"', redirect)
         self.assertIn('href="https://juadague94.github.io/" rel="canonical"', redirect)
 
+    def test_eq_courses_path_serves_the_dedicated_landing(self):
+        landing_path = ROOT / "eq-cursos" / "index.html"
+        self.assertTrue(landing_path.is_file())
+        body = landing_path.read_text(encoding="utf-8")
+        self.assertIn("Cursos de compensación EQ · Dr.Fish", body)
+        for section_id in ("basica", "intermedia", "avanzada"):
+            self.assertIn(f'id="{section_id}"', body)
+
 
 if __name__ == "__main__":
     unittest.main()
